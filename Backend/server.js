@@ -6,8 +6,8 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const customerRoutes = require("./routes/customer");
 const dealerRoutes = require("./routes/dealer");
-const uploadRoutes = require('./routes/upload');
-const adminRoutes = require('./routes/admin');
+const uploadRoutes = require("./routes/upload");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: "100mb" }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 // Enable CORS with specific origin
-app.use(cors());
+app.use(cors({ origin: "https://finance-app-aaaa-f2025.vercel.app" }));
 
 // Connect to MongoDB
 connectDB();
@@ -24,9 +24,9 @@ connectDB();
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/customers", customerRoutes);
-app.use("/api/dealer",dealerRoutes);
+app.use("/api/dealer", dealerRoutes);
 app.use("/api/upload", uploadRoutes);
-app.use("/api/admin",adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
