@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useTable } from "react-table";
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import * as XLSX from "xlsx";
@@ -9,6 +8,7 @@ const Collection = () => {
   const [data, setData] = useState([]);
   const dealerEmail = localStorage.getItem("email");
   const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
   // Fetch data from the backend
   useEffect(() => {
     const fetchData = async () => {
@@ -27,39 +27,6 @@ const Collection = () => {
     };
     fetchData();
   }, [dealerEmail]); // Fetch data only once when the component mounts
-
-  const columns = React.useMemo(
-    () => [
-      { Header: "Loan ID", accessor: "_id" },
-      { Header: "Name", accessor: "name" },
-      { Header: "Phone No", accessor: "phone" },
-      { Header: "Partner Code", accessor: "partner" },
-      { Header: "Loan Amount", accessor: "loanAmount" },
-      { Header: "Term", accessor: "loanTenure" },
-      { Header: "EMI", accessor: "emiPaymentDay" },
-      { Header: "First EMI Date", accessor: "startingEmiDate" },
-      { Header: "EMI Due", accessor: "emiDue" },
-      { Header: "Late Fee Due", accessor: "lateFeeDue" },
-      { Header: "Extra Paid", accessor: "extraPaid" },
-      { Header: "Substatus", accessor: "status" },
-      { Header: "April", accessor: "months.april" },
-      { Header: "May", accessor: "months.may" },
-      { Header: "June", accessor: "months.june" },
-      { Header: "July", accessor: "months.july" },
-      { Header: "August", accessor: "months.august" },
-      { Header: "September", accessor: "months.september" },
-      { Header: "October", accessor: "months.october" },
-      { Header: "November", accessor: "months.november" },
-      { Header: "December", accessor: "months.december" },
-      { Header: "January", accessor: "months.january" },
-      { Header: "February", accessor: "months.february" },
-      { Header: "March", accessor: "months.march" },
-    ],
-    []
-  );
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
 
   const handleExportExcel = () => {
     const flattenedData = data.map(({ months, ...rest }) => ({
@@ -101,34 +68,40 @@ const Collection = () => {
         </CSVLink>
       </div>
 
-      <table {...getTableProps()} className="table-auto w-full border-collapse">
+      <table className="table-auto w-full border-collapse">
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className="border px-4 py-2 bg-gray-200"
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
+          <tr>
+            <th className="border px-4 py-2 bg-gray-200">Loan ID</th>
+            <th className="border px-4 py-2 bg-gray-200">Name</th>
+            <th className="border px-4 py-2 bg-gray-200">Phone No</th>
+            <th className="border px-4 py-2 bg-gray-200">Partner Code</th>
+            <th className="border px-4 py-2 bg-gray-200">Loan Amount</th>
+            <th className="border px-4 py-2 bg-gray-200">Term</th>
+            <th className="border px-4 py-2 bg-gray-200">EMI</th>
+            <th className="border px-4 py-2 bg-gray-200">First EMI Date</th>
+            <th className="border px-4 py-2 bg-gray-200">EMI Due</th>
+            <th className="border px-4 py-2 bg-gray-200">Late Fee Due</th>
+            <th className="border px-4 py-2 bg-gray-200">Extra Paid</th>
+            <th className="border px-4 py-2 bg-gray-200">Substatus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index} className="border-b">
+              <td className="border px-4 py-2">{row._id}</td>
+              <td className="border px-4 py-2">{row.name}</td>
+              <td className="border px-4 py-2">{row.phone}</td>
+              <td className="border px-4 py-2">{row.partner}</td>
+              <td className="border px-4 py-2">{row.loanAmount}</td>
+              <td className="border px-4 py-2">{row.loanTenure}</td>
+              <td className="border px-4 py-2">{row.emiPaymentDay}</td>
+              <td className="border px-4 py-2">{row.startingEmiDate}</td>
+              <td className="border px-4 py-2">{row.emiDue}</td>
+              <td className="border px-4 py-2">{row.lateFeeDue}</td>
+              <td className="border px-4 py-2">{row.extraPaid}</td>
+              <td className="border px-4 py-2">{row.status}</td>
             </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} className="border-b">
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()} className="border px-4 py-2">
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
         </tbody>
       </table>
     </div>
