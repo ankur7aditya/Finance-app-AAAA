@@ -8,6 +8,7 @@ const Collection = () => {
   const [data, setData] = useState([]);
   const dealerEmail = localStorage.getItem("email");
   const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  // clg
 
   // Fetch data from the backend
   useEffect(() => {
@@ -98,12 +99,14 @@ const Collection = () => {
               <td className="border px-4 py-2">{row.startingEmiDate}</td>
               <td className="border px-4 py-2">{row.emiDue}</td>
               <td className="border px-4 py-2">{row.lateFeeDue}</td>
+
               <td className="border px-4 py-2">{row.extraPaid}</td>
               <td className="border px-4 py-2">{row.status}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
     </div>
   );
 };
