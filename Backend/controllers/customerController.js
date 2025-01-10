@@ -5,8 +5,8 @@ const Document = require("../models/documentModel");
 const PartnerCode = require("../models/partnerModel");
 
 require("dotenv").config();
-const bucketName = process.env.AWS_BUCKET_NAME;
-const region = process.env.AWS_BUCKET_REGION;
+const bucketName = process.env.MY_APP_BUCKET_NAME;
+const region = process.env.MY_APP_BUCKET_REGION;
 
 exports.uploadLoanApplication = async (req, res) => {
   try {

@@ -7,8 +7,8 @@ const crypto = require("crypto");
 const { uploadFile, deleteFile, getObjectSignedUrl } = require("../models/s3Config");
 const router = express.Router();
 
-const bucketName = process.env.AWS_BUCKET_NAME;
-const region = process.env.AWS_BUCKET_REGION;
+const bucketName = process.env.MY_APP_BUCKET_NAME;
+const region = process.env.MY_APP_BUCKET_REGION;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

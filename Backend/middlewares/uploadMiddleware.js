@@ -6,7 +6,7 @@ const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 // Configure the S3 client with your AWS credentials and region
 const s3Client = new S3Client();
-const bucketName = process.env.AWS_BUCKET_NAME
+const bucketName = process.env.MY_APP_BUCKET_NAME
 function uploadFileToS3(fileBuffer, fileName, mimetype) {
   const uploadParams = {
     Bucket: bucketName,
