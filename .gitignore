@@ -29,3 +29,6 @@ coverage/
 
 # nyc test coverage
 .nyc_output/
+
+# ignore zip files
+*.zip

@@ -15,8 +15,14 @@ const app = express();
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
+//configure CORS
+const corsOptions = {
+  origin: "https://finance-app-aaaa-f2025.vercel.app",
+  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 // Enable CORS with specific origin
-app.use(cors({ origin: "https://finance-app-aaaa-f2025.vercel.app" }));
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 connectDB();
@@ -27,7 +33,7 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/dealer", dealerRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.get("/", (req, res) => res.send("API is running..."));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -35,5 +41,5 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
