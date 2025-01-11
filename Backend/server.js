@@ -28,11 +28,11 @@ app.use(cors(corsOptions));
 connectDB();
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/customers", customerRoutes);
-app.use("/api/dealer", dealerRoutes);
-app.use("/api/upload", uploadRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/auth", authRoutes);
+app.use("/customers", customerRoutes);
+app.use("/dealer", dealerRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/admin", adminRoutes);
 app.get("/", (req, res) => res.send("API is running..."));
 // Error handling middleware
 app.use((err, req, res, next) => {
