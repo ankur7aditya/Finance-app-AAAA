@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AdminHome() {
@@ -30,9 +30,16 @@ function AdminHome() {
     // { id: 8, image: "../assests/fieldInspection.jpg", text: "Field Inspection", path: "/dealer-home/field-inspection" },
   ];
 
+  const userType = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (!userType) {
+      navigate("/"); // Redirect to login if userType is not set
+    }
+  }, [userType]);
   const handleLogout = () => {
     setShowPopup(false);
-    localStorage.removeItem("email"); // Remove email from local storage
+    localStorage.clear(); // Clear the local storage
     navigate("/"); // Redirect to the login page
   };
 

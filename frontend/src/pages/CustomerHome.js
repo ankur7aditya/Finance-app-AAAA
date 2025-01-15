@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 const CustomerHome = () => {
@@ -7,10 +7,17 @@ const CustomerHome = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
+  const userType = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (!userType) {
+      navigate("/"); // Redirect to login if userType is not set
+    }
+  }, [userType]);
   const handleLogout = () => {
     setShowPopup(false);
+    localStorage.clear(); // Clear the local storage
     navigate("/"); // Redirect to the login page
-    localStorage.removeItem("email"); // Remove email from local storage
   };
 
   const products = [

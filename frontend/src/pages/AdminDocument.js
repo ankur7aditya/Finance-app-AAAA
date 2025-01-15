@@ -132,6 +132,23 @@ function AdminDocument() {
               <span className="text-gray-500">PAN card image not uploaded</span>
             </div>
           )}
+          {applications.chassisImage ? (
+            <div className="flex flex-col items-center justify-center mb-5">
+              <img
+                src={applications.chassisImage}
+                alt="Chassis"
+                className="w-full h-auto rounded shadow-md object-cover"
+              />
+              <span className="text-black text-2xl">Chassis</span>
+              <span className="text-black text-2xl">
+                Chassis Number:{applications.chassisNumber}
+              </span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-40 bg-gray-200 rounded shadow-md mb-5">
+              <span className="text-gray-500">Chassis image not uploaded</span>
+            </div>
+          )}
 
           {applications.rcUploadImage ? (
             <div className="flex flex-col items-center justify-center mb-5">

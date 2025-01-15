@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 const DealerHome = () => {
@@ -7,19 +7,67 @@ const DealerHome = () => {
 
   // Card data with navigation paths
   const cards = [
-    { id: 1, image: "../assests/reminder.jpg", text: "Daily Updates", path: "/dealer-home/reminder" },
-    { id: 2, image: "../assests/profile.jpeg", text: "Profile", path: "/dealer-home/profile" },
-    { id: 3, image: "../assests/training.png", text: "Training & Policies", path: "/dealer-home/training-policies" },
-    { id: 4, image: "../assests/newApplication.jpeg", text: "New Application", path: "/dealer-home/new-application" },
-    { id: 5, image: "../assests/loanDetails.jpg", text: "Customer Loan Detail", path: "/dealer-home/customer-loan-detail" },
-    { id: 6, image: "../assests/Collection.jpeg", text: "Collection", path: "/dealer-home/collection" },
-    { id: 7, image: "../assests/enquiry.jpg", text: "Enquiry", path: "/dealer-home/enquiry" },
-    { id: 8, image: "../assests/fieldInspection.jpg", text: "Field Inspection", path: "/dealer-home/field-inspection" },
+    {
+      id: 1,
+      image: "../assests/reminder.jpg",
+      text: "Daily Updates",
+      path: "/dealer-home/reminder",
+    },
+    {
+      id: 2,
+      image: "../assests/profile.jpeg",
+      text: "Profile",
+      path: "/dealer-home/profile",
+    },
+    {
+      id: 3,
+      image: "../assests/training.png",
+      text: "Training & Policies",
+      path: "/dealer-home/training-policies",
+    },
+    {
+      id: 4,
+      image: "../assests/newApplication.jpeg",
+      text: "New Application",
+      path: "/dealer-home/new-application",
+    },
+    {
+      id: 5,
+      image: "../assests/loanDetails.jpg",
+      text: "Customer Loan Detail",
+      path: "/dealer-home/customer-loan-detail",
+    },
+    {
+      id: 6,
+      image: "../assests/Collection.jpeg",
+      text: "Collection",
+      path: "/dealer-home/collection",
+    },
+    {
+      id: 7,
+      image: "../assests/enquiry.jpg",
+      text: "Enquiry",
+      path: "/dealer-home/enquiry",
+    },
+    {
+      id: 8,
+      image: "../assests/fieldInspection.jpg",
+      text: "Field Inspection",
+      path: "/dealer-home/field-inspection",
+    },
   ];
+
+  const userType = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (!userType) {
+      navigate("/"); // Redirect to login if userType is not set
+    }
+  }, [userType]);
 
   const handleLogout = () => {
     setShowPopup(false);
-    localStorage.removeItem("email"); // Remove email from local storage
+    localStorage.clear(); // Clear the local storage
     navigate("/"); // Redirect to the login page
   };
 

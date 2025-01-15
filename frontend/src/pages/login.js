@@ -12,6 +12,11 @@ const Login = () => {
   const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
+  const setLocalStorage = async (key, value) => {
+    localStorage.setItem(key, value);
+    return Promise.resolve();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -25,13 +30,16 @@ const Login = () => {
     const payload = { name, email, password, userType };
 
     try {
-      const response = await fetch(`${REACT_APP_BACKEND_URL}/auth/${endpoint}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        `${REACT_APP_BACKEND_URL}/auth/${endpoint}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.text();
@@ -43,14 +51,14 @@ const Login = () => {
         }
       } else {
         const data = await response.json();
+        await setLocalStorage("email", email);
+        await setLocalStorage("userType", userType);
         if (userType === "customer") {
-          navigate("/customer-home");
-          localStorage.setItem("email", email);
+          window.location.href = "/customer-home";
         } else if (userType === "dealer") {
-          localStorage.setItem("email", email);
-          navigate("/dealer-home");
+          window.location.href = "/dealer-home";
         } else if (userType === "admin") {
-          navigate("/admin-home");
+          window.location.href = "/admin-home";
         }
       }
     } catch (err) {

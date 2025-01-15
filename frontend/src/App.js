@@ -34,121 +34,131 @@ import AdminLoans from "./pages/AdminLoans";
 import AdminDealerProfile from "./pages/AdminDealerProfile";
 import AdminCreateDealer from "./pages/AdminCreateDealer";
 import AdminDocument from "./pages/AdminDocument";
+import ProtectedRoute from "./pages/ProtectedRoute"; // Import ProtectedRoute
 
 function App() {
+  const userType = localStorage.getItem("userType"); // Retrieve userType from localStorage
+
   return (
     <div className="App">
       <Router>
         <Routes>
-          {/* Existing Routes */}
+          {/* Public Routes */}
           <Route path="/" element={<Login />} />
-          <Route path="/customer-home" element={<CustomerHome />} />
-          <Route
-            path="/customer-home/apply-loan"
-            element={<LoanApplicationForm />}
-          />
-          <Route
-            path="/customer-home/upload-doc"
-            element={<LoanDocumentUpload />}
-          />
-          <Route path="/customer-home/upload/pan" element={<Pan />} />
-          <Route
-            path="/customer-home/upload/aadhar-front"
-            element={<AadharFront />}
-          />
-          <Route
-            path="/customer-home/upload/aadhar-back"
-            element={<AAdharBack />}
-          />
-          <Route
-            path="/customer-home/upload/profile-pic"
-            element={<ProfilePic />}
-          />
-          <Route path="/dealer-home" element={<DealerHome />} />
 
-          {/* New Dealer Routes */}
-          <Route path="/dealer-home/reminder" element={<Reminder />} />
-          <Route path="/dealer-home/profile" element={<Profile />} />
+          {/* Customer Routes */}
           <Route
-            path="/dealer-home/training-policies"
-            element={<TrainingPolicies />}
-          />
-          <Route
-            path="/dealer-home/new-application"
-            element={<NewApplication />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload"
-            element={<NewApplicationUpload />}
-          />
-          {/* Document upload by dealer routes */}
-          <Route
-            path="/dealer-home/new-application/upload/chassis"
-            element={<Chassis />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/motor"
-            element={<Motor />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/battery"
-            element={<Battery />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/passbook"
-            element={<Passbook />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/customer"
-            element={<CustomerVehicle />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/invoice"
-            element={<Invoice />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/nach"
-            element={<Nach />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/insurance"
-            element={<Insurance />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/dispatch"
-            element={<VehicleDispatch />}
-          />
-          <Route
-            path="/dealer-home/new-application/upload/rc"
-            element={<Rc />}
-          />
+            element={<ProtectedRoute allowedUserTypes={["customer"]} userType={userType} />}
+          >
+            <Route path="/customer-home" element={<CustomerHome />} />
+            <Route
+              path="/customer-home/apply-loan"
+              element={<LoanApplicationForm />}
+            />
+            <Route
+              path="/customer-home/upload-doc"
+              element={<LoanDocumentUpload />}
+            />
+            <Route path="/customer-home/upload/pan" element={<Pan />} />
+            <Route
+              path="/customer-home/upload/aadhar-front"
+              element={<AadharFront />}
+            />
+            <Route
+              path="/customer-home/upload/aadhar-back"
+              element={<AAdharBack />}
+            />
+            <Route
+              path="/customer-home/upload/profile-pic"
+              element={<ProfilePic />}
+            />
+          </Route>
 
+          {/* Dealer Routes */}
           <Route
-            path="/dealer-home/customer-loan-detail"
-            element={<CustomerLoanDetail />}
-          />
-          <Route path="/dealer-home/collection" element={<Collection />} />
-          <Route path="/dealer-home/enquiry" element={<Enquiry />} />
-          <Route
-            path="/dealer-home/field-inspection"
-            element={<FieldInspection />}
-          />
+            element={<ProtectedRoute allowedUserTypes={["dealer"]} userType={userType} />}
+          >
+            <Route path="/dealer-home" element={<DealerHome />} />
+            <Route path="/dealer-home/reminder" element={<Reminder />} />
+            <Route path="/dealer-home/profile" element={<Profile />} />
+            <Route
+              path="/dealer-home/training-policies"
+              element={<TrainingPolicies />}
+            />
+            <Route path="/dealer-home/new-application" element={<NewApplication />} />
+            <Route
+              path="/dealer-home/new-application/upload"
+              element={<NewApplicationUpload />}
+            />
+            {/* Document upload routes */}
+            <Route
+              path="/dealer-home/new-application/upload/chassis"
+              element={<Chassis />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/motor"
+              element={<Motor />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/battery"
+              element={<Battery />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/passbook"
+              element={<Passbook />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/customer"
+              element={<CustomerVehicle />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/invoice"
+              element={<Invoice />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/nach"
+              element={<Nach />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/insurance"
+              element={<Insurance />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/dispatch"
+              element={<VehicleDispatch />}
+            />
+            <Route
+              path="/dealer-home/new-application/upload/rc"
+              element={<Rc />}
+            />
+            <Route
+              path="/dealer-home/customer-loan-detail"
+              element={<CustomerLoanDetail />}
+            />
+            <Route path="/dealer-home/collection" element={<Collection />} />
+            <Route path="/dealer-home/enquiry" element={<Enquiry />} />
+            <Route path="/dealer-home/field-inspection" element={<FieldInspection />} />
+          </Route>
 
           {/* Admin Routes */}
-          <Route path="/admin-home" element={<AdminHome />} />
-          <Route path="/admin-home/loans" element={<AdminLoans />} />
           <Route
-            path="/admin-home/dealer-profile"
-            element={<AdminDealerProfile />}
-          />
-          <Route
-            path="/admin-home/create-dealer"
-            element={<AdminCreateDealer />}
-          />
-          <Route
-            path="/admin-home/new-application/document"
-            element={<AdminDocument />}
-          />
+            element={<ProtectedRoute allowedUserTypes={["admin"]} userType={userType} />}
+          >
+            <Route path="/admin-home" element={<AdminHome />} />
+            <Route path="/admin-home/loans" element={<AdminLoans />} />
+            <Route
+              path="/admin-home/dealer-profile"
+              element={<AdminDealerProfile />}
+            />
+            <Route
+              path="/admin-home/create-dealer"
+              element={<AdminCreateDealer />}
+            />
+            <Route
+              path="/admin-home/new-application/document"
+              element={<AdminDocument />}
+            />
+          </Route>
         </Routes>
       </Router>
     </div>
